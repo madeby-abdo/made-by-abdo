@@ -40,6 +40,7 @@
             line-height: 1.7;
             overflow-x: hidden;
             position: relative;
+            width: 100%;
         }
         body:not(.en) {
             font-family: var(--font-ar);
@@ -348,8 +349,16 @@
             animation: float 5s ease-in-out infinite;
             z-index: 2;
         }
-        .tag-1 { top: 15%; right: -25px; animation-delay: 0s; }
-        .tag-2 { bottom: 12%; left: -25px; animation-delay: 2.5s; }
+        .tag-1 {
+            top: 15%;
+            right: -25px;
+            animation-delay: 0s;
+        }
+        .tag-2 {
+            bottom: 12%;
+            left: -25px;
+            animation-delay: 2.5s;
+        }
         .tag-icon {
             width: 36px;
             height: 36px;
@@ -470,8 +479,12 @@
             transition: var(--transition-smooth);
             backdrop-filter: blur(4px);
         }
-        .portfolio-item:hover img { transform: scale(1.08); }
-        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+        .portfolio-item:hover img {
+            transform: scale(1.08);
+        }
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
         .zoom-icon {
             width: 55px;
             height: 55px;
@@ -486,7 +499,9 @@
             transition: var(--transition-smooth);
             box-shadow: 0 0 25px var(--accent-glow);
         }
-        .portfolio-item:hover .zoom-icon { transform: scale(1); }
+        .portfolio-item:hover .zoom-icon {
+            transform: scale(1);
+        }
 
         /* Lightbox */
         .lightbox {
@@ -650,7 +665,6 @@
                 opacity: 0 !important;
                 visibility: hidden !important;
             }
-
             header {
                 padding: 15px 4vw;
                 flex-wrap: wrap;
@@ -660,6 +674,7 @@
             .nav-links {
                 order: 3;
                 width: 100%;
+                max-width: 100%;
                 justify-content: center;
                 gap: 15px;
                 margin-top: 10px;
@@ -673,11 +688,10 @@
                 padding: 6px 16px;
                 font-size: 0.85rem;
             }
-
             .section-padding {
                 padding: 60px 5vw 40px;
             }
-
+            
             /* --- تعديل ترتيب قسم الـ Hero التنازلي للهاتف --- */
             .hero {
                 padding-top: 110px;
@@ -685,14 +699,13 @@
             }
             .hero-container {
                 display: flex;
-                flex-direction: column; /* تحويل الترتيب عمودياً */
+                flex-direction: column;
                 text-align: center;
                 gap: 25px;
+                width: 100%;
             }
-            
-            /* 1. جعل الصورة (Visual) تظهر أول شيء في الأعلى */
             .hero-visual {
-                order: 1; 
+                order: 1;
                 width: 100%;
             }
             .hero-card img {
@@ -700,10 +713,8 @@
                 margin: 0 auto;
             }
             .floating-tag {
-                display: none !important; /* إخفاء العناصر المعلقة بالكامل بالهاتف لمنع التداخل */
+                display: none !important;
             }
-
-            /* 2. جعل المحتوى النصي (Headline + Description) يظهر ثانياً */
             .hero-content {
                 order: 2;
                 width: 100%;
@@ -736,8 +747,6 @@
                 width: 100%;
                 justify-content: center;
             }
-
-            /* 3. جعل الإحصائيات تظهر في النهاية تماماً لتفصل بين القسم الأول وقسم About */
             .hero-stats {
                 order: 5;
                 width: 100%;
@@ -753,10 +762,10 @@
                 font-size: 0.8rem;
             }
 
-            /* --- تنظيم قسم About للهاتف وفصله تماماً --- */
+            /* --- تنظيم قسم About للهاتف --- */
             #about {
                 margin-top: 20px;
-                background: rgba(12, 21, 44, 0.3); /* خلفية خفيفة جداً لتميز القسم */
+                background: rgba(12, 21, 44, 0.3);
                 border-top: 1px solid var(--border-glass);
                 border-bottom: 1px solid var(--border-glass);
             }
@@ -774,22 +783,24 @@
                 margin: 0 auto;
             }
 
-            /* الفلاتر والمعرض بالهاتف */
+            /* الفلاتر والمعرض بالهاتف - تم حل مشكلة الـ Overflow هنا */
             .portfolio-filters {
                 flex-wrap: wrap;
-                gap: 10px;
+                gap: 8px;
+                width: 100%;
             }
             .filter-btn {
-                padding: 8px 20px;
-                font-size: 0.9rem;
-                flex: 1 1 calc(50% - 10px);
+                padding: 8px 12px;
+                font-size: 0.85rem;
+                flex: 1 1 calc(50% - 8px);
                 text-align: center;
+                box-sizing: border-box;
             }
             .portfolio-grid {
                 grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
                 gap: 12px;
+                width: 100%;
             }
-            
             .portfolio-overlay {
                 background: rgba(5, 9, 20, 0.4);
             }
@@ -799,15 +810,14 @@
                 font-size: 1rem;
                 transform: scale(1);
             }
-
             .pricing-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+                width: 100%;
             }
             .pricing-card {
                 padding: 30px 20px;
             }
-
             .contact-box {
                 padding: 30px 20px;
             }
@@ -823,6 +833,7 @@
     <div class="bg-glow top-left"></div>
     <div class="bg-glow bottom-right"></div>
     <div class="bg-grid"></div>
+
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
@@ -836,7 +847,8 @@
             <li><a href="#pricing" class="cursor-hover-target" data-en="Pricing">الأسعار</a></li>
         </ul>
         <button class="btn-glass cursor-hover-target" id="lang-toggle">
-            <i class="fa-solid fa-earth-americas"></i> <span>AR</span>
+            <i class="fa-solid fa-earth-americas"></i>
+            <span>AR</span>
         </button>
     </header>
 
@@ -847,6 +859,7 @@
                     <img src="images/profile.jpg" alt="Creative Design Artwork">
                 </div>
             </div>
+            
             <div class="hero-content" data-aos="fade-up">
                 <div class="creative-badge">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -856,10 +869,13 @@
                     <span data-en="I'm Abde Lfettah "> أنا عبد الفتاح </span><br>
                     <span class="text-gradient" data-en="Graphic Designer"> مصمم جرافيك </span>
                 </h1>
-                <p class="hero-desc" data-en="I am Abde Lfettah, a graphic designer with 3 years of experience. I don't just create beautiful visuals that catch the eye; I craft high-impact thumbnails and social media posts strategically designed to boost your metrics, increase your click-through rates (CTR), and drive your revenue"> أنا عبد الفتاح، مصمم جرافيك بخبرة 3 سنوات. لا أكتفي بصنع تصاميم جميلة تسر العين، بل أبتكر صوراً مصغرة وبوستات سوشيال ميديا تهدف أساساً إلى مضاعفة أرقامك, زيادة نقراتك، ورفع أرباحك. </p>
+                <p class="hero-desc" data-en="I am Abde Lfettah, a graphic designer with 3 years of experience. I don't just create beautiful visuals that catch the eye; I craft high-impact thumbnails and social media posts strategically designed to boost your metrics, increase your click-through rates (CTR), and drive your revenue">
+                    أنا عبد الفتاح، مصمم جرافيك بخبرة 3 سنوات. لا أكتفي بصنع تصاميم جميلة تسر العين، بل أبتكر صوراً مصغرة وبوستات سوشيال ميديا تهدف أساساً إلى مضاعفة أرقامك, زيادة نقراتك، ورفع أرباحك.
+                </p>
                 <div class="hero-actions">
                     <a href="#portfolio" class="btn-primary cursor-hover-target">
-                        <i class="fa-solid fa-eye"></i> <span data-en="Explore Work">تصفح أعمالي</span>
+                        <i class="fa-solid fa-eye"></i>
+                        <span data-en="Explore Work">تصفح أعمالي</span>
                     </a>
                     <a href="#contact" class="btn-glass cursor-hover-target">
                         <span data-en="Let's Talk">تواصل معي</span>
@@ -892,7 +908,9 @@
                 <div class="section-header" style="margin-bottom: 25px;">
                     <h2 class="section-title"><span class="text-accent" data-en="About">نبذة</span> <span data-en="Me">عني</span></h2>
                 </div>
-                <p data-en="I am Abde Lfettah Ben Seddik, combining artistic vision with marketing strategies. I craft visuals that tell your story cleanly and attract your ideal audience."> أنا <strong>عبد الفتاح بن صديق</strong>، أدمج بين الفن الإبداعي والفهم التسويقي. أهتم بالتفاصيل والألوان وتوزيع الإضاءة لأخرج بتصاميم لا تبدو جميلة فحسب، بل تحقق أهدافك وتزيد من تفاعل جمهورك. </p>
+                <p data-en="I am Abde Lfettah Ben Seddik, combining artistic vision with marketing strategies. I craft visuals that tell your story cleanly and attract your ideal audience.">
+                    أنا <strong>عبد الفتاح بن صديق</strong>، أدمج بين الفن الإبداعي والفهم التسويقي. أهتم بالتفاصيل والألوان وتوزيع الإضاءة لأخرج بتصاميم لا تبدو جميلة فحسب، بل تحقق أهدافك وتزيد من تفاعل جمهورك.
+                </p>
                 <div class="skills-container">
                     <div class="skill-bar-wrap">
                         <div class="skill-header">
@@ -964,7 +982,6 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
     <section id="pricing" class="section-padding">
         <div class="section-header" data-aos="fade-up">
             <h2 class="section-title"><span data-en="Investment ">باقات </span><span class="text-accent" data-en="Plans">الأسعار</span></h2>
@@ -982,7 +999,8 @@
             <h2 class="section-title" data-en="Let's Work Together">هل لديك مشروع مميز؟</h2>
             <p style="color:var(--text-muted); margin: 15px 0 30px;" data-en="Send me a message and let's elevate your visual presence today.">تواصل معي الآن ودعنا ننقل أفكارك إلى تصاميم احترافية استثنائية.</p>
             <a href="https://wa.me/212658490812?text=Hello,%20I%20saw%20your%20portfolio%20and%20I%20would%20like%20to%20order%20a%20design." target="_blank" class="btn-primary cursor-hover-target">
-                <i class="fa-brands fa-whatsapp"></i> <span data-en="Contact via WhatsApp">تواصل عبر واتساب</span>
+                <i class="fa-brands fa-whatsapp"></i>
+                <span data-en="Contact via WhatsApp">تواصل عبر واتساب</span>
             </a>
         </div>
     </section>
@@ -1013,16 +1031,16 @@
         });
 
         // Custom Cursor Logic
-        const dot = document.querySelector('.cursor-dot');
-        const outline = document.querySelector('.cursor-outline');
-        window.addEventListener('mousemove', (e) => {
-            dot.style.left = `${e.clientX}px`;
-            dot.style.top = `${e.clientY}px`;
-            outline.animate({
-                left: `${e.clientX}px`,
-                top: `${e.clientY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
+const dot = document.querySelector('.cursor-dot');
+const outline = document.querySelector('.cursor-outline');
+window.addEventListener('mousemove', (e) => {
+    dot.style.left = `${e.clientX}px`;
+    dot.style.top = `${e.clientY}px`;
+    outline.animate({
+        left: `${e.clientX}px`, //   تم التصحيح إلى :
+        top: `${e.clientY}px`   //   تم التصحيح إلى :
+    }, { duration: 500, fill: "forwards" });
+});
 
         document.querySelectorAll('.cursor-hover-target').forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
@@ -1066,7 +1084,7 @@
             if (e.target === lightbox) lightbox.classList.remove('active');
         });
 
-        document.querySelectorAll('#portfolio .filter-btn').forEach(btn => {            
+        document.querySelectorAll('#portfolio .filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('#portfolio .filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
@@ -1088,7 +1106,6 @@
             document.querySelectorAll('#pricing .filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            
             if (type === 'thumb') {
                 document.querySelector('#pricing .filter-btn[data-en="Thumbnails"]').classList.add('active');
             } else {
@@ -1096,7 +1113,6 @@
             }
 
             const pGrid = document.getElementById('pricing-grid');
-            
             const data = {
                 thumb: {
                     en: [
@@ -1141,11 +1157,12 @@
         }
 
         function updateLanguage() {
+            isEn = !isEn; // قلب اللغة عند الضغط
             document.body.classList.toggle("en", isEn);
             document.documentElement.lang = isEn ? "en" : "ar";
             document.documentElement.dir = isEn ? "ltr" : "rtl";
             langToggle.querySelector("span").textContent = isEn ? "AR" : "EN";
-            
+
             document.querySelectorAll("[data-en]").forEach(el => {
                 el.textContent = isEn ? el.dataset.en : el.dataset.ar;
             });
@@ -1155,12 +1172,8 @@
             showPricing(type);
         }
 
-        updateLanguage();
-
-        langToggle.addEventListener("click", () => {
-            isEn = !isEn;
-            updateLanguage();
-        });
+        langToggle.addEventListener("click", updateLanguage);
+        showPricing('thumb'); // التشغيل المبدئي للأسعار
     </script>
 </body>
 </html>

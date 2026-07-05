@@ -29,7 +29,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none;
+            cursor: none; /* خاص بالكمبيوتر ويتم إلغاؤه في الهاتف عبر الميديا كويري بالأسفل */
         }
         body, button, input, select, textarea {
             font-family: var(--font-en);
@@ -639,16 +639,137 @@
             flex-wrap: wrap;
             gap: 20px;
         }
+
+        /* ================================== RESPONSIVE & MOBILE OPTIMIZATIONS ================================== */
         @media (max-width: 992px) {
+            /* 1. إرجاع الـ Cursor التلقائي للمس على الهواتف وإلغاء اختفائه */
+            * {
+                cursor: auto !important;
+            }
+            
+            /* إخفاء مؤشرات الفأرة المخصصة لأنها مزعجة باللمس وتتحرك بشكل مشوه */
+            .cursor-dot, .cursor-outline {
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+            }
+
+            /* 2. تبسيط الهيدر وسهولة التنقل بالهاتف */
+            header {
+                padding: 15px 4vw;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: space-between;
+            }
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid var(--border-glass);
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+            .btn-glass {
+                padding: 6px 16px;
+                font-size: 0.85rem;
+            }
+
+            /* 3. ترتيب وتناسق الأقسام لتبدو بسيطة ونظيفة */
+            .section-padding {
+                padding: 80px 4vw 60px;
+            }
             .hero-container, .about-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 30px;
             }
-            .hero-actions, .hero-stats {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .hero-desc {
+                font-size: 0.95rem;
+                max-width: 100%;
+                margin-bottom: 25px;
+            }
+            .hero-actions {
+                justify-content: center;
+                gap: 10px;
+            }
+            .hero-actions .btn-primary, .hero-actions .btn-glass {
+                width: 100%;
                 justify-content: center;
             }
+            .hero-stats {
+                justify-content: space-around;
+                gap: 15px;
+                margin-top: 30px;
+            }
+            .stat-item h3 {
+                font-size: 1.5rem;
+            }
+
+            /* إخفاء العناصر المعلقة تماماً على الهواتف */
             .floating-tag {
-                display: none;
+                display: none !important;
+            }
+            .hero-card img {
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            /* قسم About بالهاتف */
+            .about-text .section-header {
+                text-align: center !important;
+            }
+            
+            /* الفلاتر والمعرض بالهاتف */
+            .portfolio-filters {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .filter-btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+                flex: 1 1 calc(50% - 10px);
+                text-align: center;
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+            
+            /* جعل تأثير الضغط في الهاتف يفتح المعاينة مباشرة دون الاعتماد على الحوام (Hover) */
+            .portfolio-overlay {
+                background: rgba(5, 9, 20, 0.4);
+            }
+            .zoom-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                transform: scale(1);
+            }
+
+            /* قسم الأسعار بالهاتف */
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .pricing-card {
+                padding: 30px 20px;
+            }
+
+            /* الصندوق البريدي والفوتير */
+            .contact-box {
+                padding: 30px 20px;
+            }
+            footer {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
             }
         }
     </style>
@@ -685,7 +806,7 @@
                     <span data-en="I'm Abde Lfettah "> أنا عبد الفتاح </span><br>
                     <span class="text-gradient" data-en="Graphic Designer"> مصمم جرافيك </span>
                 </h1>
-                <p class="hero-desc" data-en="I am Abde Lfettah, a graphic designer with 3 years of experience. I don't just create beautiful visuals that catch the eye; I craft high-impact thumbnails and social media posts strategically designed to boost your metrics, increase your click-through rates (CTR), and drive your revenue"> أنا عبد الفتاح، مصمم جرافيك بخبرة 3 سنوات. لا أكتفي بصنع تصاميم جميلة تسر العين، بل أبتكر صوراً مصغرة وبوستات سوشيال ميديا تهدف أساساً إلى مضاعفة أرقامك، زيادة نقراتك، ورفع أرباحك. </p>
+                <p class="hero-desc" data-en="I am Abde Lfettah, a graphic designer with 3 years of experience. I don't just create beautiful visuals that catch the eye; I craft high-impact thumbnails and social media posts strategically designed to boost your metrics, increase your click-through rates (CTR), and drive your revenue"> أنا عبد الفتاح، مصمم جرافيك بخبرة 3 سنوات. لا أكتفي بصنع تصاميم جميلة تسر العين، بل أبتكر صوراً مصغرة وبوستات سوشيال ميديا تهدف أساساً إلى مضاعفة أرقامك, زيادة نقراتك، ورفع أرباحك. </p>
                 <div class="hero-actions">
                     <a href="#portfolio" class="btn-primary cursor-hover-target">
                         <i class="fa-solid fa-eye"></i> <span data-en="Explore Work">تصفح أعمالي</span>
@@ -723,10 +844,10 @@
                 <img src="images\about.jpg" alt="Workspace">
             </div>
             <div class="about-text" data-aos="fade-left">
-                <div class="section-header" style="text-align: right; margin-bottom: 25px;">
+                <div class="section-header" style="margin-bottom: 25px;">
                     <h2 class="section-title"><span class="text-accent" data-en="About">نبذة</span> <span data-en="Me">عني</span></h2>
                 </div>
-                <p data-en="I am Abde Lfettah Ben Seddik, combining artistic vision with marketing strategies. I craft visuals that tell your story cleanly and attract your ideal audience."> أنا <strong>عبد الفتاح بن صديق</strong>، أدمج بين الفن الإبداعي والفهم التسويقي. أهتم بالتفاصيل والألوان وتوزيع الإضاءة لأخرج بتصاميم لا تبدو جميلة فحسب، بل تحقق أهدافك وتزيد من تفاعل جمهورك. </p>
+                <p data-en="I am Abde Lfettah Ben Seddik, combining artistic vision with marketing strategies. I craft visuals that tell your story cleanly and attract your ideal audience."> أنا <strong>عبد الفتاح بن صديق</strong>، أدمج بين Фن الإبداعي والفهم التسويقي. أهتم بالتفاصيل والألوان وتوزيع الإضاءة لأخرج بتصاميم لا تبدو جميلة فحسب، بل تحقق أهدافك وتزيد من تفاعل جمهورك. </p>
                 <div class="skills-container">
                     <div class="skill-bar-wrap">
                         <div class="skill-header">
@@ -912,13 +1033,12 @@
 
         // Multi-language Logic & Pricing Setup
         const langToggle = document.getElementById("lang-toggle");
-        let isEn = true; // البدء بالإنجليزية دائماً
+        let isEn = true;
 
         document.querySelectorAll("[data-en]").forEach(el => {
             el.dataset.ar = el.textContent.trim();
         });
 
-        // دالة عرض الأسعار مع دعم كامل للغتين
         function showPricing(type) {
             document.querySelectorAll('#pricing .filter-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -985,16 +1105,13 @@
                 el.textContent = isEn ? el.dataset.en : el.dataset.ar;
             });
 
-            // تحديث الباقات لتعرض باللغة الصحيحة
             const activePricingBtn = document.querySelector('#pricing .filter-btn.active');
             const type = activePricingBtn.getAttribute('data-en') === 'Thumbnails' ? 'thumb' : 'social';
             showPricing(type);
         }
 
-        // تشغيل الباقات والموقع لأول مرة بالإنجليزية
         updateLanguage();
 
-        // زر تغيير اللغة
         langToggle.addEventListener("click", () => {
             isEn = !isEn;
             updateLanguage();

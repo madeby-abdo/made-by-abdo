@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">    <head>
+<html lang="en" dir="ltr">    
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MADE BY ABDO | Creative Graphic Designer</title>
@@ -782,28 +783,40 @@ document.querySelectorAll('#portfolio .filter-btn').forEach(btn => {            
         // التحميل الأولي للصور المصغرة (الافتراضي)
         renderPortfolio('thumb');
         langToggle.click();
+        const langToggle = document.getElementById("lang-toggle");
 
-        // تبديل اللغة (عربي / إنجليزي)
-        let isEn = false;
-        const langToggle = document.getElementById('lang-toggle');
-        langToggle.addEventListener('click', () => {
-            isEn = !isEn;
-            document.body.classList.toggle('en', isEn);
-            document.documentElement.setAttribute('dir', isEn ? 'ltr' : 'rtl');
-            document.documentElement.setAttribute('lang', isEn ? 'en' : 'ar');
-            langToggle.querySelector('span').textContent = isEn ? 'AR' : 'EN';
-            
-            document.querySelectorAll('[data-en]').forEach(el => {
-                if (!el.getAttribute('data-ar')) el.setAttribute('data-ar', el.textContent);
-                el.textContent = isEn ? el.getAttribute('data-en') : el.getAttribute('data-ar');
-                // تشغيل الإنجليزية عند فتح الموقع
-window.addEventListener("load", () => {
-    if (!isEn) {
-        langToggle.click();
-    }
+// اللغة الافتراضية
+let isEn = true;
+
+// حفظ النص العربي مرة واحدة
+document.querySelectorAll("[data-en]").forEach(el => {
+    el.dataset.ar = el.textContent.trim();
 });
-            });
-        });
+
+function updateLanguage() {
+
+    document.body.classList.toggle("en", isEn);
+
+    document.documentElement.lang = isEn ? "en" : "ar";
+    document.documentElement.dir = isEn ? "ltr" : "rtl";
+
+    langToggle.querySelector("span").textContent = isEn ? "AR" : "EN";
+
+    document.querySelectorAll("[data-en]").forEach(el => {
+        el.textContent = isEn ? el.dataset.en : el.dataset.ar;
+    });
+
+}
+
+// تشغيل اللغة عند فتح الموقع
+updateLanguage();
+
+// زر تغيير اللغة
+langToggle.addEventListener("click", () => {
+    isEn = !isEn;
+    updateLanguage();
+});
+
     </script>
 </body>
 </html>

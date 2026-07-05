@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MADE BY ABDO | Creative Graphic Designer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* ==================================
+           CSS VARIABLES & THEME
+           ================================== */
+        :root {
+            --bg-color: #050914;
+            --primary-color: #0c152c;
+            --surface-color: rgba(15, 23, 42, 0.6);
+            --accent-color: #00a8ff;
+            --accent-glow: rgba(0, 168, 255, 0.4);
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-ar: 'Tajawal', sans-serif;
+            --font-en: 'Poppins', sans-serif;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-accent: rgba(0, 168, 255, 0.3);
+            --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ==================================
+           RESET & GLOBAL
+           ================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body, button, input, select, textarea {
+            font-family: var(--font-ar);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body.en, body.en button, body.en input, body.en select, body.en textarea { 
+            font-family: var(--font-en); 
+        }
+        body.en { direction: ltr; }
+        
+        ::selection {
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        /* ==================================
+           CUSTOM CURSOR
+           ================================== */
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 8px; height: 8px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+        }
+        
+        .cursor-outline {
+            position: fixed;
+            top: 0; left: 0;
+            width: 40px; height: 40px;
+            border: 1px solid var(--accent-glow);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease-out, width 0.2s, height 0.2s, background 0.2s;
+        }
+
+        .cursor-hover .cursor-dot { opacity: 0; }
+        .cursor-hover .cursor-outline {
+            width: 60px; height: 60px;
+            background: rgba(0, 168, 255, 0.15);
+            border-color: var(--accent-color);
+            backdrop-filter: blur(2px);
+        }
+
+        /* ==================================
+           BACKGROUND EFFECTS
+           ================================== */
+        .bg-glow {
+            position: fixed;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.4;
+            animation: pulseGlow 15s infinite alternate ease-in-out;
+        }
+        .bg-glow.top-left { top: -15%; left: -10%; }
+        .bg-glow.bottom-right { bottom: -15%; right: -10%; animation-delay: -5s; }
+
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, var(--border-glass) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-glass) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -2;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.8) translate(0, 0); opacity: 0.3; }
+            100% { transform: scale(1.2) translate(50px, 50px); opacity: 0.5; }
+        }
+
+        /* ==================================
+           TYPOGRAPHY & UTILITIES
+           ================================== */
+        .section-padding { padding: 100px 5vw; }
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-accent { color: var(--accent-color); }
+        
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-title { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; margin-bottom: 15px; }
+        .section-subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* ==================================
+           NAVIGATION
+           ================================== */
+        header {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 5vw;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(5, 9, 20, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-glass);
+            transition: padding var(--transition-smooth);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; }
+        
+        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+        .nav-links a {
+            color: var(--text-light); text-decoration: none; font-weight: 500;
+            font-size: 0.95rem; position: relative; padding: 5px 0; transition: var(--transition-smooth);
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 2px; background: var(--accent-color);
+            transform: scaleX(0); transition: transform var(--transition-smooth);
+        }
+        .nav-links a:hover::after { transform: scaleX(1); }
+
+        .btn-glass {
+            background: var(--surface-color);
+            border: 1px solid var(--border-accent);
+            color: var(--text-light);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            font-size: 0.95rem;
+        }
+        .btn-glass:hover {
+            background: var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color) 0%, #0066cc 100%);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-weight: 700;
+            display: inline-flex; align-items: center; gap: 10px;
+            text-decoration: none;
+            border: none;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 168, 255, 0.4);
+        }
+
+        /* ==================================
+           HERO SECTION (CREATIVE & APPROACHABLE)
+           ================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center;
+            padding-top: 100px;
+        }
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            width: 100%;
+        }
+        .creative-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid var(--border-accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .hero-content h1 { font-size: clamp(2.8rem, 4.5vw, 4.2rem); font-weight: 900; line-height: 1.2; margin-bottom: 20px; }
+        .hero-desc { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 35px; max-width: 90%; }
+        
+        .hero-actions { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
+
+        .hero-stats {
+            display: flex; gap: 40px; margin-top: 45px;
+            padding-top: 30px; border-top: 1px dashed var(--border-glass);
+        }
+        .stat-item h3 { font-size: 1.8rem; color: #fff; font-weight: 800; }
+        .stat-item p { color: var(--text-muted); font-size: 0.9rem; }
+
+        .hero-visual { position: relative; display: flex; justify-content: center; }
+        .hero-card {
+            position: relative;
+            background: linear-gradient(145deg, var(--surface-color), rgba(5,9,20,0.8));
+            border: 1px solid var(--border-accent);
+            border-radius: 30px;
+            padding: 15px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            transform: rotate(-2deg);
+            transition: var(--transition-smooth);
+        }
+        .hero-card:hover { transform: rotate(0deg) scale(1.02); }
+        .hero-card img {
+            width: 100%; max-width: 380px; aspect-ratio: 4/5; object-fit: cover;
+            border-radius: 22px; display: block;
+        }
+        
+        .floating-tag {
+            position: absolute;
+            background: rgba(12, 21, 44, 0.9);
+            border: 1px solid var(--border-accent);
+            padding: 12px 18px;
+            border-radius: 16px;
+            display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            animation: float 5s ease-in-out infinite;
+            z-index: 2;
+        }
+        .tag-1 { top: 15%; right: -25px; animation-delay: 0s; }
+        .tag-2 { bottom: 12%; left: -25px; animation-delay: 2.5s; }
+        .tag-icon {
+            width: 36px; height: 36px; border-radius: 10px;
+            background: var(--accent-color); color: #fff;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ==================================
+           ABOUT SECTION
+           ================================== */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .about-image-wrapper { border-radius: 24px; overflow: hidden; border: 1px solid var(--border-glass); }
+        .about-image-wrapper img { width: 100%; height: auto; display: block; }
+        
+        .skills-container { display: flex; flex-direction: column; gap: 18px; margin-top: 30px; }
+        .skill-bar-wrap { background: var(--surface-color); padding: 15px 20px; border-radius: 14px; border: 1px solid var(--border-glass); }
+        .skill-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 700; }
+        .skill-progress-bg { height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+        .skill-progress-fill { height: 100%; background: var(--accent-color); border-radius: 4px; }
+
+        /* ==================================
+           PORTFOLIO SECTION
+           ================================== */
+        .portfolio-filters { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+        .filter-btn {
+            background: var(--surface-color); border: 1px solid var(--border-glass);
+            color: var(--text-muted); padding: 12px 30px; border-radius: 30px;
+            font-weight: 700; font-size: 1rem; transition: var(--transition-smooth);
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-color); color: #fff;
+            border-color: var(--accent-color); box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .portfolio-item {
+            position: relative; border-radius: 18px; overflow: hidden;
+            background: var(--surface-color);
+            border: 1px solid var(--border-glass);
+            aspect-ratio: 16/9;
+            transition: var(--transition-smooth);
+        }
+        .portfolio-item.social-ratio { aspect-ratio: 1/1; }
+        
+        .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        
+        .portfolio-overlay {
+            position: absolute; inset: 0;
+            background: rgba(5, 9, 20, 0.75);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; transition: var(--transition-smooth);
+            backdrop-filter: blur(4px);
+        }
+        .portfolio-item:hover img { transform: scale(1.08); }
+        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+        
+        .zoom-icon {
+            width: 55px; height: 55px; border-radius: 50%;
+            background: var(--accent-color); color: #fff;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.4rem; transform: scale(0.5); transition: var(--transition-smooth);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+        .portfolio-item:hover .zoom-icon { transform: scale(1); }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed; inset: 0; background: rgba(5, 9, 20, 0.95);
+            z-index: 2000; display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .lightbox.active { opacity: 1; pointer-events: all; }
+        .lightbox-img { max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        .lightbox-close { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 2.5rem; }
+
+        /* ==================================
+           PROCESS SECTION (WITH ICONS)
+           ================================== */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .process-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px; padding: 30px 20px;
+            text-align: center; transition: var(--transition-smooth);
+        }
+        .process-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-8px);
+        }
+        .step-icon {
+            width: 70px; height: 70px; border-radius: 20px;
+            background: rgba(0, 168, 255, 0.1); color: var(--accent-color);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.8rem; margin: 0 auto 20px;
+            border: 1px solid var(--border-accent);
+            transition: var(--transition-smooth);
+        }
+        .process-card:hover .step-icon {
+            background: var(--accent-color); color: #fff;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .step-title { font-weight: 700; font-size: 1.2rem; margin-bottom: 10px; }
+        .step-desc { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* ==================================
+           PRICING SECTION
+           ================================== */
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+            max-width: 1100px; margin: 0 auto;
+        }
+        .pricing-card {
+            background: var(--surface-color); border: 1px solid var(--border-glass);
+            border-radius: 24px; padding: 40px 30px; position: relative; overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+        .pricing-card:hover { border-color: var(--accent-color); transform: translateY(-8px); }
+        .pricing-card.popular { border-color: var(--accent-color); box-shadow: 0 10px 40px rgba(0, 168, 255, 0.15); }
+        
+        .price-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+        .price-amount { font-size: 2.8rem; font-weight: 900; color: #fff; margin-bottom: 25px; }
+        .price-features { list-style: none; margin-bottom: 30px; }
+        .price-features li { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; color: var(--text-muted); }
+        .price-features li i { color: #00ff88; }
+
+        /* ==================================
+           CONTACT & FOOTER
+           ================================== */
+        .contact-box {
+            background: var(--surface-color); border: 1px solid var(--border-glass);
+            border-radius: 30px; padding: 50px; text-align: center; max-width: 800px; margin: 0 auto;
+        }
+        footer { border-top: 1px solid var(--border-glass); padding: 30px 5vw; display: flex; justify-content: space-between; align-items: center; margin-top: 80px; flex-wrap: wrap; gap: 20px;}
+        
+        @media (max-width: 992px) {
+            .hero-container, .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-actions, .hero-stats { justify-content: center; }
+            .floating-tag { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow top-left"></div>
+    <div class="bg-glow bottom-right"></div>
+    <div class="bg-grid"></div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header>
+        <a href="#" class="logo cursor-hover-target">MADE BY <span class="text-accent">ABDO</span></a>
+        <ul class="nav-links">
+            <li><a href="#home" class="cursor-hover-target" data-en="Home">الرئيسية</a></li>
+            <li><a href="#about" class="cursor-hover-target" data-en="About">من أنا</a></li>
+            <li><a href="#portfolio" class="cursor-hover-target" data-en="Portfolio">أعمالي</a></li>
+            <li><a href="#process" class="cursor-hover-target" data-en="Process">منهجية العمل</a></li>
+            <li><a href="#pricing" class="cursor-hover-target" data-en="Pricing">الأسعار</a></li>
+        </ul>
+        <button class="btn-glass cursor-hover-target" id="lang-toggle">
+            <i class="fa-solid fa-earth-americas"></i> <span>EN</span>
+        </button>
+    </header>
+
+    <section id="home" class="hero section-padding">
+        <div class="hero-container">
+            <div class="hero-content" data-aos="fade-up">
+                <div class="creative-badge">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span data-en="Creative Graphic Designer">مصمم جرافيك ومبدع بصري</span>
+                </div>
+                <h1 class="cursor-hover-target">
+                    <span data-en="I'm Abde Lfettah "> 
+أنا عبد الفتاح
+                    </span><br>
+                    <span class="text-gradient" data-en="Graphic Designer">
+مصمم جرافيك                    </span>
+                </h1>
+                <p class="hero-desc" data-en="I am Abde Lfettah, a graphic designer with 3 years of experience. I don't just create beautiful visuals that catch the eye; I craft high-impact thumbnails and social media posts strategically designed to boost your metrics, increase your click-through rates (CTR), and drive your revenue">
+أنا عبد الفتاح، مصمم جرافيك بخبرة 3 سنوات. لا أكتفي بصنع تصاميم جميلة تسر العين، بل أبتكر صوراً مصغرة وبوستات سوشيال ميديا تهدف أساساً إلى مضاعفة أرقامك، زيادة نقراتك، ورفع أرباحك.                </p>
+                <div class="hero-actions">
+                    <a href="#portfolio" class="btn-primary cursor-hover-target">
+                        <i class="fa-solid fa-eye"></i> <span data-en="Explore Work">تصفح أعمالي</span>
+                    </a>
+                    <a href="#contact" class="btn-glass cursor-hover-target">
+                        <span data-en="Let's Talk">تواصل معي</span>
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>+250</h3>
+                        <p data-en="Projects Completed">عمل ناجح</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>99%</h3>
+                        <p data-en="Happy Clients">عميل سعيد</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24h</h3>
+                        <p data-en="Fast Turnaround">سرعة التنفيذ</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual" data-aos="zoom-in" data-aos-delay="200">
+    <div class="hero-card cursor-hover-target">
+        <img src="images\profile.jpg" alt="Creative Design Artwork">
+    </div>
+</div>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding">
+        <div class="about-grid">
+            <div class="about-image-wrapper" data-aos="fade-right">
+                <img src="images\about.jpg" alt="Workspace">
+            </div>
+            
+            <div class="about-text" data-aos="fade-left">
+                <div class="section-header" style="text-align: right; margin-bottom: 25px;">
+                    <h2 class="section-title"><span class="text-accent" data-en="About">نبذة</span> <span data-en="Me">عني</span></h2>
+                </div>
+                <p data-en="I am Abde Lfettah Ben Seddik, combining artistic vision with marketing strategies. I craft visuals that tell your story cleanly and attract your ideal audience.">
+                    أنا <strong>عبد الفتاح بن صديق</strong>، أدمج بين الفن الإبداعي والفهم التسويقي. أهتم بالتفاصيل والألوان وتوزيع الإضاءة لأخرج بتصاميم لا تبدو جميلة فحسب، بل تحقق أهدافك وتزيد من تفاعل جمهورك.
+                </p>
+                
+                <div class="skills-container">
+                    <div class="skill-bar-wrap">
+                        <div class="skill-header">
+                            <span data-en="YouTube Thumbnails">الصور المصغرة (Thumbnails)</span>
+                            <span class="text-accent">98%</span>
+                        </div>
+                        <div class="skill-progress-bg"><div class="skill-progress-fill" style="width: 98%"></div></div>
+                    </div>
+                    <div class="skill-bar-wrap">
+                        <div class="skill-header">
+                            <span data-en="Social Media Designs">تصاميم السوشيال ميديا</span>
+                            <span class="text-accent">95%</span>
+                        </div>
+                        <div class="skill-progress-bg"><div class="skill-progress-fill" style="width: 95%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="section-padding">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title"><span data-en="My Creative ">معرض </span><span class="text-accent" data-en="Portfolio">أعمالي</span></h2>
+            <p class="section-subtitle" data-en="Click on any work to enlarge and inspect the details.">اضغط على أي تصميم لتكبيره ومعاينة دقة التفاصيل والجودة</p>
+        </div>
+        
+        <div class="portfolio-filters" data-aos="fade-up">
+            <button class="filter-btn active cursor-hover-target" data-filter="thumb" data-en="Thumbnails (12)">
+                الصور المصغرة 
+            </button>
+            <button class="filter-btn cursor-hover-target" data-filter="social" data-en="Social Media (20)">
+                سوشيال ميديا 
+            </button>
+        </div>
+
+        <div class="portfolio-grid" id="portfolio-grid"></div>
+    </section>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close cursor-hover-target">&times;</span>
+        <img src="" alt="Zoomed Design" class="lightbox-img" id="lightbox-img">
+    </div>
+
+    <section id="process" class="section-padding">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title"><span data-en="Workflow ">منهجية </span><span class="text-accent" data-en="Process">العمل</span></h2>
+            <p class="section-subtitle" data-en="Clear and structured steps to ensure remarkable results.">خطوات واضحة ومبسطة تضمن لك الحصول على تصميم احترافي</p>
+        </div>
+
+        <div class="process-grid" data-aos="fade-up">
+            <div class="process-card cursor-hover-target">
+                <div class="step-icon"><i class="fa-solid fa-comments"></i></div>
+                <h4 class="step-title" data-en="1. Briefing">1. فهم الفكرة</h4>
+                <p class="step-desc" data-en="Discussing goals and visual style.">نتناقش حول فكرة المحتوى والجمهور المستهدف.</p>
+            </div>
+            <div class="process-card cursor-hover-target">
+                <div class="step-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                <h4 class="step-title" data-en="2. Inspiration">2. التغذية والبناء</h4>
+                <p class="step-desc" data-en="Analyzing styles and preparing assets.">تجميع الأفكار الملهمة واختيار العناصر والألوان.</p>
+            </div>
+            <div class="process-card cursor-hover-target">
+                <div class="step-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <h4 class="step-title" data-en="3. Design">3. التصميم والدمج</h4>
+                <p class="step-desc" data-en="Crafting the artwork with precision.">تطبيق التكوين، الإضاءة، والدمج بأسلوب جذاب.</p>
+            </div>
+            <div class="process-card cursor-hover-target">
+                <div class="step-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+                <h4 class="step-title" data-en="4. Revisions">4. التعديل والتحسين</h4>
+                <p class="step-desc" data-en="Fine-tuning details per feedback.">إجراء التعديلات المطلوبة للوصول للشكل المثالي.</p>
+            </div>
+            <div class="process-card cursor-hover-target">
+                <div class="step-icon"><i class="fa-solid fa-rocket"></i></div>
+                <h4 class="step-title" data-en="5. Delivery">5. التسليم النهائي</h4>
+                <p class="step-desc" data-en="Exporting high-quality files.">تسليم الملفات النهائية بأعلى جودة جاهزة للنشر.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+<section id="pricing" class="section-padding">
+    <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title"><span data-en="Investment ">باقات </span><span class="text-accent" data-en="Plans">الأسعار</span></h2>
+        <p class="section-subtitle" data-en="Choose the service that fits your business needs.">اختر الخدمة التي تناسب احتياجات مشروعك.</p>
+    </div>
+
+    <!-- التبديل بين التصنيفات -->
+    <div class="portfolio-filters" data-aos="fade-up" style="margin-bottom: 40px;">
+        <button class="filter-btn active cursor-hover-target" onclick="showPricing('thumb')" data-en="Thumbnails">الصور المصغرة</button>
+        <button class="filter-btn cursor-hover-target" onclick="showPricing('social')" data-en="Social Media">سوشيال ميديا</button>
+    </div>
+    
+    <div class="pricing-grid" id="pricing-grid">
+        <!-- سيتم ملء هذا الجزء عبر الجافاسكريبت أدناه -->
+    </div>
+</section>
+
+<script>
+function showPricing(type) {
+    // تغيير الزر النشط في قسم الأسعار فقط
+document.querySelectorAll('#pricing .filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+});
+
+if (type === 'thumb') {
+    document.querySelector('#pricing .filter-btn[data-en="Thumbnails"]').classList.add('active');
+} else {
+    document.querySelector('#pricing .filter-btn[data-en="Social Media"]').classList.add('active');
+}
+    const grid = document.getElementById('pricing-grid');
+    const data = {
+        thumb: [
+            { name: 'صورة واحدة', price: '$10', feat: ['تصميم احترافي واحد', 'جودة عالية', 'تسليم سريع'] },
+            { name: '5 صور', price: '$39', feat: ['5 تصاميم احترافية', 'توفير 22%', 'أولوية في التنفيذ'] },
+            { name: '15 صورة', price: '$109', feat: ['15 تصميم احترافي', 'توفير 26.7%', 'دعم فني مستمر'] }
+        ],
+        social: [
+            { name: 'تصميم واحد', price: '$15', feat: ['تصميم بوست واحد', 'مقاسات متعددة', 'جودة طباعة/نشر'] },
+            { name: '5 تصاميم', price: '$59', feat: ['5 بوستات احترافية', 'توفير 21.3%', 'تنسيق متكامل'] },
+            { name: '15 تصميم', price: '$149', feat: ['15 بوست احترافي', 'توفير 33.3%', 'هوية بصرية موحدة'] }
+        ]
+    };
+    
+    grid.innerHTML = data[type].map(p => `
+        <div class="pricing-card" data-aos="fade-up">
+            <h3 class="price-name">${p.name}</h3>
+            <div class="price-amount">${p.price}</div>
+            <ul class="price-features">
+                ${p.feat.map(f => `<li><i class="fa-solid fa-check"></i> ${f}</li>`).join('')}
+            </ul>
+            <a href="https://wa.me/21258490812" class="btn-primary" style="width:100%; justify-content:center;">اطلب الآن</a>
+        </div>
+    `).join('');
+}
+// تشغيل الباقات الافتراضية
+showPricing('thumb');
+</script>
+
+    <section id="contact" class="section-padding">
+        <div class="contact-box" data-aos="zoom-in">
+            <h2 class="section-title" data-en="Let's Work Together">هل لديك مشروع مميز؟</h2>
+            <p style="color:var(--text-muted); margin: 15px 0 30px;" data-en="Send me a message and let's elevate your visual presence today.">تواصل معي الآن ودعنا ننقل أفكارك إلى تصاميم احترافية استثنائية.</p>
+            <a href="https://wa.me/212658490812?text=السلام عليكم،%20أعجبتني%20أعمالك%20وأرغب%20في%20طلب%20تصميم."
+   target="_blank"
+   class="btn-primary cursor-hover-target">
+
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>تواصل عبر واتساب</span>
+</a>
+    </section>
+
+    <footer>
+        <p>© 2026 MADE BY ABDO. All Rights Reserved.</p>
+        <div style="display:flex; gap:15px;">
+            <div style="display:flex; gap:15px;">
+
+<a href="https://instagram.com/made.by.abdo"
+   target="_blank"
+   class="btn-glass cursor-hover-target">
+    <i class="fa-brands fa-instagram"></i>
+</a>
+
+<a href="https://behance.net/MadeByAbdo_"
+   target="_blank"
+   class="btn-glass cursor-hover-target">
+    <i class="fa-brands fa-behance"></i>
+</a>
+
+<a href="https://wa.me/21258490812"
+   target="_blank"
+   class="btn-glass cursor-hover-target">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+</div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 700, once: true, offset: 80,
+    easing: 'ease-out',
+    mirror: false });
+
+        // Custom Cursor Logic
+        const dot = document.querySelector('.cursor-dot');
+        const outline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', (e) => {
+            dot.style.left = `${e.clientX}px`;
+            dot.style.top = `${e.clientY}px`;
+            outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
+        });
+        document.querySelectorAll('.cursor-hover-target').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        // ==========================================
+        // التعديل 3: إنشاء الأعمال برمجياً (12 صورة مصغرة، 20 سوشيال ميديا)
+        // ==========================================
+        const portfolioData = {
+    thumb: Array.from({ length: 12 }, (_, i) => ({
+        id: `thumb-${i+1}`,
+        img: `images/thumb${i+1}.jpg`,
+        title: `Thumbnail ${i+1}`
+    })),
+
+    social: Array.from({ length: 20 }, (_, i) => ({
+        id: `social-${i+1}`,
+        img: `images/social${i+1}.jpg`,
+        title: `Social ${i+1}`
+    }))
+};
+
+        const grid = document.getElementById('portfolio-grid');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function renderPortfolio(filterType) {
+            grid.innerHTML = '';
+            const items = portfolioData[filterType] || [];
+            
+            items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = `portfolio-item cursor-hover-target ${filterType === 'social' ? 'social-ratio' : ''}`;
+                div.setAttribute('data-aos', 'fade-up');
+                div.setAttribute('data-aos-delay', (index % 3) * 100);
+                
+                div.innerHTML = `
+                    <img src="${item.img}" alt="${item.title}" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                `;
+
+                // تكبير الصورة عند الضغط (Zoom Lightbox)
+                div.addEventListener('click', () => {
+                    lightboxImg.src = item.img;
+                    lightbox.classList.add('active');
+                });
+
+                grid.appendChild(div);
+            });
+        }
+
+        // إغلاق نافذة التكبير
+        document.querySelector('.lightbox-close').addEventListener('click', () => lightbox.classList.remove('active'));
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+
+        // أزرار التصفية
+document.querySelectorAll('#portfolio .filter-btn').forEach(btn => {            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderPortfolio(btn.getAttribute('data-filter'));
+            });
+        });
+
+        // التحميل الأولي للصور المصغرة (الافتراضي)
+        renderPortfolio('thumb');
+
+        // تبديل اللغة (عربي / إنجليزي)
+        let isEn = false;
+        const langToggle = document.getElementById('lang-toggle');
+        langToggle.addEventListener('click', () => {
+            isEn = !isEn;
+            document.body.classList.toggle('en', isEn);
+            document.documentElement.setAttribute('dir', isEn ? 'ltr' : 'rtl');
+            document.documentElement.setAttribute('lang', isEn ? 'en' : 'ar');
+            langToggle.querySelector('span').textContent = isEn ? 'AR' : 'EN';
+            
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (!el.getAttribute('data-ar')) el.setAttribute('data-ar', el.textContent);
+                el.textContent = isEn ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+            });
+        });
+    </script>
+</body>
+</html>

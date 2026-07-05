@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
+<html lang="ar" dir="rtl">    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MADE BY ABDO | Creative Graphic Designer</title>
@@ -782,6 +781,7 @@ document.querySelectorAll('#portfolio .filter-btn').forEach(btn => {            
 
         // التحميل الأولي للصور المصغرة (الافتراضي)
         renderPortfolio('thumb');
+        langToggle.click();
 
         // تبديل اللغة (عربي / إنجليزي)
         let isEn = false;
@@ -796,6 +796,12 @@ document.querySelectorAll('#portfolio .filter-btn').forEach(btn => {            
             document.querySelectorAll('[data-en]').forEach(el => {
                 if (!el.getAttribute('data-ar')) el.setAttribute('data-ar', el.textContent);
                 el.textContent = isEn ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+                // تشغيل الإنجليزية عند فتح الموقع
+window.addEventListener("load", () => {
+    if (!isEn) {
+        langToggle.click();
+    }
+});
             });
         });
     </script>

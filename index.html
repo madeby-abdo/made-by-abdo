@@ -29,7 +29,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* خاص بالكمبيوتر ويتم إلغاؤه في الهاتف عبر الميديا كويري بالأسفل */
+            cursor: none;
         }
         body, button, input, select, textarea {
             font-family: var(--font-en);
@@ -642,19 +642,15 @@
 
         /* ================================== RESPONSIVE & MOBILE OPTIMIZATIONS ================================== */
         @media (max-width: 992px) {
-            /* 1. إرجاع الـ Cursor التلقائي للمس على الهواتف وإلغاء اختفائه */
             * {
                 cursor: auto !important;
             }
-            
-            /* إخفاء مؤشرات الفأرة المخصصة لأنها مزعجة باللمس وتتحرك بشكل مشوه */
             .cursor-dot, .cursor-outline {
                 display: none !important;
                 opacity: 0 !important;
                 visibility: hidden !important;
             }
 
-            /* 2. تبسيط الهيدر وسهولة التنقل بالهاتف */
             header {
                 padding: 15px 4vw;
                 flex-wrap: wrap;
@@ -678,24 +674,61 @@
                 font-size: 0.85rem;
             }
 
-            /* 3. ترتيب وتناسق الأقسام لتبدو بسيطة ونظيفة */
             .section-padding {
-                padding: 80px 4vw 60px;
+                padding: 60px 5vw 40px;
             }
-            .hero-container, .about-grid {
-                grid-template-columns: 1fr;
+
+            /* --- تعديل ترتيب قسم الـ Hero التنازلي للهاتف --- */
+            .hero {
+                padding-top: 110px;
+                min-height: auto;
+            }
+            .hero-container {
+                display: flex;
+                flex-direction: column; /* تحويل الترتيب عمودياً */
                 text-align: center;
-                gap: 30px;
+                gap: 25px;
+            }
+            
+            /* 1. جعل الصورة (Visual) تظهر أول شيء في الأعلى */
+            .hero-visual {
+                order: 1; 
+                width: 100%;
+            }
+            .hero-card img {
+                max-width: 260px;
+                margin: 0 auto;
+            }
+            .floating-tag {
+                display: none !important; /* إخفاء العناصر المعلقة بالكامل بالهاتف لمنع التداخل */
+            }
+
+            /* 2. جعل المحتوى النصي (Headline + Description) يظهر ثانياً */
+            .hero-content {
+                order: 2;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .creative-badge {
+                order: 1;
+                margin-bottom: 15px;
             }
             .hero-content h1 {
-                font-size: 2.2rem;
+                order: 2;
+                font-size: 2.1rem;
+                margin-bottom: 15px;
             }
             .hero-desc {
+                order: 3;
                 font-size: 0.95rem;
                 max-width: 100%;
-                margin-bottom: 25px;
+                margin-bottom: 20px;
             }
             .hero-actions {
+                order: 4;
+                width: 100%;
                 justify-content: center;
                 gap: 10px;
             }
@@ -703,29 +736,44 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            /* 3. جعل الإحصائيات تظهر في النهاية تماماً لتفصل بين القسم الأول وقسم About */
             .hero-stats {
+                order: 5;
+                width: 100%;
                 justify-content: space-around;
-                gap: 15px;
-                margin-top: 30px;
+                gap: 10px;
+                margin-top: 25px;
+                padding-top: 20px;
             }
             .stat-item h3 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+            }
+            .stat-item p {
+                font-size: 0.8rem;
             }
 
-            /* إخفاء العناصر المعلقة تماماً على الهواتف */
-            .floating-tag {
-                display: none !important;
+            /* --- تنظيم قسم About للهاتف وفصله تماماً --- */
+            #about {
+                margin-top: 20px;
+                background: rgba(12, 21, 44, 0.3); /* خلفية خفيفة جداً لتميز القسم */
+                border-top: 1px solid var(--border-glass);
+                border-bottom: 1px solid var(--border-glass);
             }
-            .hero-card img {
+            .about-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+            .about-text .section-header {
+                text-align: center !important;
+            }
+            .about-image-wrapper {
                 max-width: 280px;
                 margin: 0 auto;
             }
 
-            /* قسم About بالهاتف */
-            .about-text .section-header {
-                text-align: center !important;
-            }
-            
             /* الفلاتر والمعرض بالهاتف */
             .portfolio-filters {
                 flex-wrap: wrap;
@@ -742,7 +790,6 @@
                 gap: 12px;
             }
             
-            /* جعل تأثير الضغط في الهاتف يفتح المعاينة مباشرة دون الاعتماد على الحوام (Hover) */
             .portfolio-overlay {
                 background: rgba(5, 9, 20, 0.4);
             }
@@ -753,7 +800,6 @@
                 transform: scale(1);
             }
 
-            /* قسم الأسعار بالهاتف */
             .pricing-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -762,7 +808,6 @@
                 padding: 30px 20px;
             }
 
-            /* الصندوق البريدي والفوتير */
             .contact-box {
                 padding: 30px 20px;
             }
@@ -797,6 +842,11 @@
 
     <section id="home" class="hero section-padding">
         <div class="hero-container">
+            <div class="hero-visual" data-aos="zoom-in" data-aos-delay="200">
+                <div class="hero-card cursor-hover-target">
+                    <img src="images/profile.jpg" alt="Creative Design Artwork">
+                </div>
+            </div>
             <div class="hero-content" data-aos="fade-up">
                 <div class="creative-badge">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -830,24 +880,19 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-visual" data-aos="zoom-in" data-aos-delay="200">
-                <div class="hero-card cursor-hover-target">
-                    <img src="images\profile.jpg" alt="Creative Design Artwork">
-                </div>
-            </div>
         </div>
     </section>
 
     <section id="about" class="section-padding">
         <div class="about-grid">
             <div class="about-image-wrapper" data-aos="fade-right">
-                <img src="images\about.jpg" alt="Workspace">
+                <img src="images/about.jpg" alt="Workspace">
             </div>
             <div class="about-text" data-aos="fade-left">
                 <div class="section-header" style="margin-bottom: 25px;">
                     <h2 class="section-title"><span class="text-accent" data-en="About">نبذة</span> <span data-en="Me">عني</span></h2>
                 </div>
-                <p data-en="I am Abde Lfettah Ben Seddik, combining artistic vision with marketing strategies. I craft visuals that tell your story cleanly and attract your ideal audience."> أنا <strong>عبد الفتاح بن صديق</strong>، أدمج بين Фن الإبداعي والفهم التسويقي. أهتم بالتفاصيل والألوان وتوزيع الإضاءة لأخرج بتصاميم لا تبدو جميلة فحسب، بل تحقق أهدافك وتزيد من تفاعل جمهورك. </p>
+                <p data-en="I am Abde Lfettah Ben Seddik, combining artistic vision with marketing strategies. I craft visuals that tell your story cleanly and attract your ideal audience."> أنا <strong>عبد الفتاح بن صديق</strong>، أدمج بين الفن الإبداعي والفهم التسويقي. أهتم بالتفاصيل والألوان وتوزيع الإضاءة لأخرج بتصاميم لا تبدو جميلة فحسب، بل تحقق أهدافك وتزيد من تفاعل جمهورك. </p>
                 <div class="skills-container">
                     <div class="skill-bar-wrap">
                         <div class="skill-header">
@@ -951,7 +996,7 @@
             <a href="https://behance.net/MadeByAbdo_" target="_blank" class="btn-glass cursor-hover-target">
                 <i class="fa-brands fa-behance"></i>
             </a>
-            <a href="https://wa.me/21258490812" target="_blank" class="btn-glass cursor-hover-target">
+            <a href="https://wa.me/212658490812" target="_blank" class="btn-glass cursor-hover-target">
                 <i class="fa-brands fa-whatsapp"></i>
             </a>
         </div>
@@ -1090,7 +1135,7 @@
                     <ul class="price-features">
                         ${p.feat.map(f => `<li><i class="fa-solid fa-check"></i> ${f}</li>`).join('')}
                     </ul>
-                    <a href="https://wa.me/21258490812" class="btn-primary" style="width:100%; justify-content:center;">${btnText}</a>
+                    <a href="https://wa.me/212658490812" class="btn-primary" style="width:100%; justify-content:center;">${btnText}</a>
                 </div>
             `).join('');
         }
